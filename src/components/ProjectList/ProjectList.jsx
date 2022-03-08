@@ -1,18 +1,20 @@
 import React from 'react';
 import { Project } from '../Project/Project';
 import './ProjectList.css';
-const ProjectList = ({ projects }) => {
+const ProjectList = ({ projects = [] } = {}) => {
   return (
     <section className='project-list'>
       {projects.map((singleProject) => {
         return (
           <Project
-            key={singleProject.projectId}
+            key={singleProject.project_id}
             author={singleProject.author || ''}
-            projectName={singleProject.projectName}
-            score={singleProject.score}
-            lastUpdateDate={singleProject.lastUpdateDate}
-            isPrivate={singleProject.isPrivate ? true : null}
+            projectName={singleProject.name}
+            score={singleProject.avgScore}
+            lastUpdateDate={singleProject.lastUpdateName}
+            isPrivate={singleProject.isPublic ? null : true}
+            description={singleProject.description}
+            type={singleProject.type}
           />
         );
       })}

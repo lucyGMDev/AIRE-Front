@@ -1,0 +1,19 @@
+.search-input {
+  display: inline-block;
+  position: relative;
+}
+
+.search-input__field {
+  padding: 0.5em;
+  padding-right: 3em;
+  border-color: var(--main-color);
+  border-radius: 0.75em;
+}
+
+.search-input__submit {
+  position: absolute;
+  right: 0.5em;
+  top: 0.2em;
+  width: 1.5em;
+  cursor: pointer;
+}

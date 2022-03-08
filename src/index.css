@@ -20,3 +20,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button {
+  position: relative;
+  cursor: pointer;
+  padding: 0.5em 3em;
+  border-radius: 1em;
+  border-color: var(--main-color);
+  background-color: #fff;
+}
+
+.button__icon {
+  position: absolute;
+  right: 1em;
+  height: 1em;
+}
+
+.tag {
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  background-color: white;
+  border-radius: 1em;
+  padding: 0.5em 2em;
+  cursor: pointer;
+}
+
+.tag--checked {
+  background-color: #eee;
+}

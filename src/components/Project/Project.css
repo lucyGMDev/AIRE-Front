@@ -1,15 +1,26 @@
+:root {
+  --card-width: 325px;
+  --card-height: 350px;
+}
+
 .project-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.5em;
+  position: relative;
   border: 1px solid var(--main-color);
   background-color: var(--background-color);
+  overflow: hidden;
+}
+
+.project-card,
+.project-card__info {
   border-radius: 2em;
   padding: 0.5em 2em 1em;
-  width: 325px;
-  height: 350px;
+  width: var(--card-width);
+  height: var(--card-height);
 }
 
 .project-card__title {
@@ -42,4 +53,50 @@
   border-radius: 1em;
   background-color: gray;
   padding: 0.5em 1.5em;
+}
+
+.project-card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: calc(var(--card-width) * -1);
+  border: 1px solid black;
+  background-color: rgba(0 0 0/0.85);
+  text-align: center;
+  color: white;
+}
+.project-card__info--apperance {
+  animation-duration: 0.3s;
+  animation-name: apperance;
+  animation-fill-mode: forwards;
+}
+.project-card__info--dissapperance {
+  animation-duration: 0.3s;
+  animation-name: dissapperance;
+  animation-fill-mode: forwards;
+}
+
+.project-card__categories-title {
+  display: block;
+  margin-bottom: 1em;
+}
+@keyframes apperance {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--card-width));
+  }
+}
+
+@keyframes dissapperance {
+  from {
+    transform: translateX(var(--card-width));
+  }
+  to {
+    transform: translateX(0px);
+  }
 }
