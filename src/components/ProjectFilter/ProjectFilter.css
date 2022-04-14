@@ -4,13 +4,12 @@
 }
 
 .filter-panel {
-  position: absolute;
-  right: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1em;
+  position: absolute;
+  right: 0;
   padding: 1em;
-  /* margin-top: 0.25em; */
   border: 1px solid var(--main-color);
   border-radius: 1em;
   background-color: #fff;

@@ -8,7 +8,8 @@ const ProjectList = ({ projects = [] } = {}) => {
         return (
           <Project
             key={singleProject.project_id}
-            author={singleProject.author || ''}
+            projectId={singleProject.project_id}
+            coauthors={singleProject.coauthors}
             projectName={singleProject.name}
             score={singleProject.avgScore}
             lastUpdateDate={singleProject.lastUpdateName}

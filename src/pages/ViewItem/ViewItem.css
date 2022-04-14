@@ -1,0 +1,30 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+.item__path {
+  color: var(--main-color);
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 2em;
+}
+.item__path-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.item__files-grid {
+  border: 1px solid var(--main-color);
+  border-radius: 3em;
+  padding: 3em;
+}
+
+.item__download-button{
+  align-self: flex-end;
+}

@@ -1,0 +1,23 @@
+.project-tag {
+  position: relative;
+  border: 1px solid var(--main-color);
+  border-radius: 2em;
+  width: 8em;
+  height: 2.25em;
+  text-align: center;
+  cursor: pointer;
+}
+.project-tag__remove-icon {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  width: 1em;
+  height: 1em;
+  color: var(--main-color);
+}
+
+.project-tag__text {
+  text-align: center;
+  line-height: 2em;
+  color: var(--main-color);
+}

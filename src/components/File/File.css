@@ -1,0 +1,47 @@
+.file {
+  padding-bottom: 2em;
+  padding-top: 2em;
+  border-bottom: 1px solid #ccc;
+}
+
+.file:last-child{
+  border-bottom: none;
+}
+
+.file__main-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file__name {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+}
+
+.file__logo {
+  width: 2em;
+  height: 2em;
+}
+
+.file__see-info {
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.file__see-info--up {
+  transform: rotate(180deg);
+}
+
+.file__see-info--down {
+  transform: rotate(0deg);
+}
+
+.file-description{
+  margin-top: 2.5em;
+}
+
+

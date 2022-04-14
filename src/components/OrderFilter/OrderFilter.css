@@ -1,0 +1,16 @@
+.order-filter {
+  position: relative;
+}
+
+.order-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  position: absolute;
+  right: 0;
+  padding: 1em;
+  border: 1px solid var(--main-color);
+  border-radius: 1em;
+}

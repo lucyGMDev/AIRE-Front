@@ -36,15 +36,34 @@ code {
   height: 1em;
 }
 
-.tag {
+.form__input{
+  display: block;
+  margin-top: 0.25em;
+  margin-bottom: 1em;
+  padding: 0.5em 1em;
+  border: 1px solid var(--main-color);
+  border-radius: 1em;
+}
+
+.blue-button {
   border: 1px solid var(--main-color);
   color: var(--main-color);
   background-color: white;
   border-radius: 1em;
   padding: 0.5em 2em;
+  font-size: 0.85rem;
   cursor: pointer;
 }
 
-.tag--checked {
+.blue-button--checked {
   background-color: #eee;
+}
+
+.text--main-color {
+  color: var(--main-color);
+}
+
+.object-link {
+  color: inherit;
+  text-decoration: none;
 }

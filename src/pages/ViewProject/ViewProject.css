@@ -1,0 +1,50 @@
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5em;
+}
+
+.project-section {
+  padding: 3em;
+  border: 1px solid var(--main-color);
+  border-radius: 3em;
+}
+
+.project-name {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 2em;
+}
+
+.project__buttons-controller {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  padding: 0em 3em;
+}
+
+.project-items__header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  padding: 1em;
+  padding-left: 4em;
+  color: var(--main-color);
+  font-weight: bold;
+}
+.project-items__header p:first-child {
+  place-self: start;
+  padding-left: 1.25em;
+}
+
+.project-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6em;
+}

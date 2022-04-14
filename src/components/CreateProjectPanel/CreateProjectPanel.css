@@ -1,0 +1,32 @@
+.create-panel{
+  border: 1px solid var(--main-color);
+  min-width: 500px;
+  border-radius: 2em;
+  padding: 2em;
+  background-color: white;
+}
+
+.create-panel__label{
+  display: block;
+  color: var(--main-color);
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.create-panel__coauthors-list-pannel{
+  color: var(--main-color);
+  margin-bottom: 0.5em;
+}
+
+.create-panel__coauthor{
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin: 0.40em;
+}
+
+.create-panel__coauthor-remove-button{
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+}

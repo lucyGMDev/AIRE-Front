@@ -1,0 +1,47 @@
+.version {
+  position: relative;
+}
+.versions-button {
+  position: relative;
+  border: 1px solid var(--main-color);
+  border-radius: 1.5em;
+  background-color: white;
+  color: var(--main-color);
+  padding: 1em 4em;
+
+  cursor: pointer;
+}
+
+.versions-button__icon {
+  position: absolute;
+  top: 1em;
+  height: 1.5em;
+}
+
+.versions-button__icon--arrow {
+  right: 1.5em;
+}
+
+.versions-button__icon--version {
+  left: 1.5em;
+}
+
+.versions-pannel {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--main-color);
+  border-radius: 1.5em;
+  min-width: 12em;
+  padding: 1em;
+  background-color: white;
+  width: 100%;
+  color: var(--main-color);
+  z-index: 10;
+}
+
+.versions-pannel__link {
+  cursor: pointer;
+}

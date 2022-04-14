@@ -4,6 +4,7 @@
 }
 
 .search-input__field {
+  width: 35em;
   padding: 0.5em;
   padding-right: 3em;
   border-color: var(--main-color);
@@ -17,3 +18,4 @@
   width: 1.5em;
   cursor: pointer;
 }
+

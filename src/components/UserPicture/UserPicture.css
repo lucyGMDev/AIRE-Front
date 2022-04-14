@@ -1,0 +1,11 @@
+.picture{
+  height: 4.5em;
+  width: 4.5em;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.picture--big{
+  height: 12em;
+  width: 12em;
+}

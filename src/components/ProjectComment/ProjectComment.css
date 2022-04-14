@@ -1,0 +1,52 @@
+.comment {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  gap: 2em;
+  position: relative;
+  margin-bottom: 2.5em;
+}
+
+.comment__user-image {
+  position: relative;
+  
+}
+
+.comment__body {
+  position: relative;
+  width: 100%;
+  right: 0;
+}
+
+.comment__body-header {
+  display: flex;
+  gap:1em ;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.comment__post-date,
+.comment__writter-email {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.comment__post-date {
+  color: gray;
+}
+
+.comment__writter-email {
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+.comment__comment-text {
+  margin-top: 0.5em;
+}
+
+.comment__replay,
+.comment__view-replies-button{
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+

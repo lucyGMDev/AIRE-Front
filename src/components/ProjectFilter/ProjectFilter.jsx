@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { FilterTag } from './FilterTag';
+import { PROJECT_TYPES } from '../../utils/environmental';
+import { FilterButton } from './FilterButton';
 import './ProjectFilter.css';
-const FILTERS = ['ML', 'NLP', 'SEARCH', 'CV', 'ONT'];
-const ProjectFilter = ({ filterList, changeFilters }) => {
+
+const ProjectFilter = () => {
   const [hiddenFilterPanel, setHiddenFilterPanel] = useState(true);
 
   return (
@@ -16,22 +17,15 @@ const ProjectFilter = ({ filterList, changeFilters }) => {
         }}
         className='button'
       >
-        <span>Filter</span>
+        Filter
         <img className='button__icon' src='/assets/arrow_icon.webp' />
       </button>
       {hiddenFilterPanel ? (
         ''
       ) : (
         <div className='filter-panel'>
-          {FILTERS.map((singleFilter) => {
-            return (
-              <FilterTag
-                key={singleFilter}
-                tagName={singleFilter}
-                filterList={filterList}
-                changeFilters={changeFilters}
-              />
-            );
+          {PROJECT_TYPES.map((singleFilter) => {
+            return <FilterButton key={singleFilter} tagName={singleFilter} />;
           })}
         </div>
       )}

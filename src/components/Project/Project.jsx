@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Rating } from 'react-simple-star-rating';
+import { ProjectContext } from '../../context/ProjectProvider';
 import './Project.css';
 const Project = ({
-  author,
+  projectId,
   projectName,
   score,
   lastUpdateDate,
   isPrivate,
   description,
+  coauthors,
   type = [],
 } = {}) => {
-  const [showInfo, setShowInfo] = useState(false);
-
+  const [showInfo, setShowInfo] = useState();
   const [projectCardInfoAction, setProjectCardInfoAction] = useState('');
+  const { setProject } = useContext(ProjectContext);
+  const navigation = useNavigate();
   useEffect(() => {
-    showInfo
-      ? setProjectCardInfoAction('project-card__info--apperance')
-      : setProjectCardInfoAction('project-card__info--dissapperance');
+    if (showInfo === true) {
+      setProjectCardInfoAction('project-card__info--apperance');
+    }
+    if (showInfo === false) {
+      setProjectCardInfoAction('project-card__info--dissapperance');
+    }
   }, [showInfo]);
 
-  const projectTitle = author ? `${author}/${projectName}` : projectName;
+  const projectTitle = projectName;
   const footerPermission = isPrivate
     ? 'project-card__footer--private'
     : 'project-card__footer--public';
@@ -34,15 +42,32 @@ const Project = ({
     setShowInfo(false);
   };
 
+  const clickHandler = () => {
+    setProject({
+      projectId,
+      name: projectName,
+      score,
+      lastUpdateDate,
+      isPublic: !isPrivate,
+      description,
+      type,
+      coauthors,
+    });
+    navigation(`/project/${projectId}`);
+  };
+
   return (
     <article
       className='project-card'
       onMouseOver={overHandler}
       onMouseLeave={leaveHandler}
+      onClick={clickHandler}
     >
       <img className='project-card__icon' src='/assets/folder_icon.webp' />
       <h3 className='project-card__title'>{projectTitle}</h3>
-      <span className='project-card__score'>Score: {score}</span>
+      <span className='project-card__score'>
+        <Rating initialValue={score} readonly fillColor='#0077b6' />
+      </span>
       <footer className={`project-card__footer ${footerPermission}`}>
         {isPrivate ? (
           <span className='project-card__permision'>Private</span>
@@ -53,7 +78,7 @@ const Project = ({
       </footer>
       <div className={`project-card__info ${projectCardInfoAction}`}>
         <p>{description || 'There are not a description'}</p>
-        {type ? (
+        {type.length !== 0 ? (
           <p>
             <span className='project-card__categories-title'>Categories:</span>
             {type.join()}

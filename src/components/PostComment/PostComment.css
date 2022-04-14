@@ -1,0 +1,25 @@
+.post-comment{
+  display:flex;
+  margin-bottom: 1em;
+  gap: 2em;
+}
+
+.post-comment__username{
+  font-weight: bold;
+  color: var(--main-color)
+}
+
+.post-comment__body{
+  width: 80%;
+}
+
+.post-comment_input{
+  display: block;
+  width: 100%;
+}
+
+.post-comment__buttons{
+  display:flex;
+  justify-content: flex-end;
+  gap: 1em;
+}

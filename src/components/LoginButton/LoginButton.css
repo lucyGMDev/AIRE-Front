@@ -1,0 +1,10 @@
+.login-button {
+  display: inline-block;
+  background-color: var(--main-color);
+  color: white;
+  width: 8em;
+  height: 3em;
+  border: 1px solid var(--main-color);
+  border-radius: 1em;
+  cursor: pointer;
+}

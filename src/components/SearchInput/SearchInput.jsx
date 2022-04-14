@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { searchInUserProjects } from '../../services/SearchProjectsServices';
 import './SearchInput.css';
-const SearchInput = () => {
+const SearchInput = ({
+  userToken,
+  searchUserProjects,
+  username,
+  setProjectSearched,
+}) => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    navigate(`/search${searchInput ? `?keyword=${searchInput}` : ''}`);
+    if (searchUserProjects) {
+      searchInUserProjects({ userToken, username, keyword: searchInput }).then(
+        (projects) => setProjectSearched(projects)
+      );
+    } else {
+      navigate(`/search${searchInput ? `?keyword=${searchInput}` : ''}`);
+    }
     setSearchInput('');
   };
   const handleChange = (evt) => {
     setSearchInput(evt.target.value);
   };
   const clickHandler = () => {
-    navigate(`/search?keyword=${searchInput}`);
+    if (searchUserProjects) {
+      searchInUserProjects({ userToken, username, keyword: searchInput }).then(
+        (projects) => setProjectSearched(projects)
+      );
+    } else {
+      navigate(`/search?keyword=${searchInput}`);
+    }
   };
   return (
     <form className='search-input' onSubmit={handleSubmit}>

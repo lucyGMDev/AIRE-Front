@@ -1,0 +1,47 @@
+.project-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding-top: 2em;
+  cursor: pointer;
+  border: 1px solid var(--main-color);
+  border-radius: 2em;
+  min-width: 20em;
+}
+
+.project-item--private {
+  border: none;
+  cursor: default;
+}
+
+.project-item__header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+}
+.project-item__name {
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+.project-item__logo {
+  width: 5em;
+}
+
+.project-item__block-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0 0 0/ 0.8);
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.project-item--empty{
+  cursor: default;
+}
