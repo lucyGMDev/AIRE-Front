@@ -1,0 +1,32 @@
+.create-version{
+  position:relative;
+}
+
+.create-version-panel{
+  position: absolute;
+  left: -8em;
+  top: 110%;
+  background-color:white;
+  border: 1px solid var(--main-color);
+  border-radius: 2em;
+  padding:2em;
+  width: 30em;
+  z-index: 10;
+}
+
+.create-version-panel__label{
+  display:block;
+  color: var(--main-color);
+  margin-bottom: 1em;
+}
+
+.create-version-panel__input{
+  width: 100%;
+}
+.create-version-panel__input-radio{
+  cursor: pointer;
+}
+.create-version-panel__error-message{
+  color:red;
+  font-weight: bold;
+}

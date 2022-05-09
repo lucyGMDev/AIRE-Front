@@ -26,7 +26,7 @@ const PostComment = ({
   const postComment = (evt) => {
     PostAComment({
       projectId,
-      writterEmail: user.email,
+      username: user.username,
       commentText,
       responseCommentId: replyCommentId,
       userToken,

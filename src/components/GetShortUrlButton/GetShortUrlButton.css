@@ -1,0 +1,41 @@
+.short-url{
+  position: relative;
+}
+
+.get-short-url-button{
+  border-radius: 3em;
+  padding: 1em 4em;
+}
+
+.short-url-panel{
+  position:absolute;
+  border: 1px solid var(--main-color);
+  border-radius: 2em;
+  padding: 2em;
+  background-color:white;
+  z-index: 10;
+  top:4em;
+  right: -7em;
+  min-width: 25em;
+}
+.create-short-url__input{
+  width:100%;
+  margin-top: 1em;
+}
+.create-short-url__label{
+  color: var(--main-color);
+}
+
+.create-short-url__buttons{
+  display: flex;
+  justify-content: flex-end;
+  gap:1em;
+  margin-top: 2em;
+}
+
+.create-short-url__error-message{
+  color:red;
+  font-size: 0.75em;
+  font-weight: semi-bold;
+}
+

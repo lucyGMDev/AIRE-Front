@@ -7,10 +7,10 @@ import { FiltersProvider } from './context/FiltersContext';
 import { ViewProject } from './pages/ViewProject/ViewProject';
 import { ProjectProvider } from './context/ProjectProvider';
 import { ViewItem } from './pages/ViewItem/ViewItem';
-import { SelectFilesDownloadProvider } from './context/SelectFilesDownloadContext';
-import { ViewFile } from './pages/ViewFile/ViewFile';
+import { SelectedFilesProvider } from './context/SelectedFilesContext';
 import { UserSessionContext } from './context/UserSessionContext';
 import { UserHome } from './pages/UserHome/UserHome';
+import { ViewFile } from './pages/ViewFile/ViewFile';
 function App() {
   const { userToken, user } = useContext(UserSessionContext);
   return (
@@ -39,13 +39,13 @@ function App() {
           <Route
             path='/project/:projectId/:itemName'
             element={
-              <SelectFilesDownloadProvider>
+              <SelectedFilesProvider>
                 <ViewItem />
-              </SelectFilesDownloadProvider>
+              </SelectedFilesProvider>
             }
           />
           <Route
-            path='/project/:projectId/:itemName/:fileName'
+            path='/project/:projectId/:itemName/:fileName/fileViewer'
             element={<ViewFile />}
           />
         </Routes>

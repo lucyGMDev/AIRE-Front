@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getDateSince } from '../../utils/dateUtils';
-import { SelectFilesDownloadContext } from '../../context/SelectFilesDownloadContext';
+import { SelectedFilesContext } from '../../context/SelectedFilesContext';
 import { ProjectContext } from '../../context/ProjectProvider';
 import './File.css';
 const File = ({
@@ -15,9 +15,7 @@ const File = ({
 }) => {
   const date = getDateSince({ dateString: lastUpdate }) || '';
   const [showMoreInfo, setShowMoreInfo] = useState(false);
-  const { selectedFiles, setSelectedFiles } = useContext(
-    SelectFilesDownloadContext
-  );
+  const { selectedFiles, setSelectedFiles } = useContext(SelectedFilesContext);
   const { version } = useContext(ProjectContext);
   const checkbox = useRef();
 
@@ -27,12 +25,17 @@ const File = ({
 
   useEffect(() => {
     checkbox.current.checked = false;
+    setSelectedFiles(selectedFiles.filter((file) => file !== fileName));
   }, [version]);
 
+  useEffect(() => {
+    checkFileHandler();
+  }, []);
+
   const checkFileHandler = () => {
-    if (selectedFiles.includes(fileName)) {
+    if (!checkbox.current.checked && selectedFiles.includes(fileName)) {
       setSelectedFiles(selectedFiles.filter((file) => file !== fileName));
-    } else {
+    } else if (checkbox.current.checked && !selectedFiles.includes(fileName)) {
       setSelectedFiles([...selectedFiles, fileName]);
     }
   };
@@ -46,7 +49,9 @@ const File = ({
             src={`/assets/${itemName}-item-logo.webp`}
             className='file__logo'
           />
-          <Link to={`/project/${projectId}/${directoryName}/${fileName}`}>
+          <Link
+            to={`/project/${projectId}/${directoryName}/${fileName}/fileViewer`}
+          >
             {fileName}
           </Link>
         </div>

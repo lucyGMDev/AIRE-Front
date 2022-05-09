@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import './ProjectItem.css';
+import { UserSessionContext } from '../../context/UserSessionContext';
 import { getDateSince } from '../../utils/dateUtils';
+import { useIsAuthor } from '../../Hooks/useIsAuthor';
 const ProjectItem = ({
   itemName,
   numDownloads,
@@ -9,12 +12,15 @@ const ProjectItem = ({
   numFiles,
   isEmpty,
 }) => {
+  const { projectId } = useParams('projectId');
+  const { userToken } = useContext(UserSessionContext);
+  const { isAuthor } = useIsAuthor({ projectId, userToken });
   const date = getDateSince({ dateString: lastUpdated }) || '';
   return (
     <div
-      className={`project-item ${!isPublic ? 'project-item--private' : ''} ${
-        isEmpty && 'project-item--empty'
-      }`}
+      className={`project-item ${
+        !isPublic && !isAuthor ? 'project-item--private' : ''
+      } ${isEmpty && 'project-item--empty'}`}
     >
       <div className='project-item__header'>
         <img
@@ -23,13 +29,13 @@ const ProjectItem = ({
         />
         <span className='project-item__name'>{itemName}</span>
       </div>
-      {isPublic ? (
+      {isPublic || isAuthor ? (
         <div>
           <p>
-            <span className='text--main-color'>Number Files: </span> {numFiles}
+            <span className='text--main-color'>Files: </span> {numFiles}
           </p>
           <p>
-            <span className='text--main-color'>Nº Downloads: </span>
+            <span className='text--main-color'>Downloads: </span>
             {numDownloads}
           </p>
           <p>

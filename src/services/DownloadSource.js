@@ -5,7 +5,7 @@ const DownloadSource = async ({
   projectId,
   folderName,
   fileName,
-  token = '',
+  userToken = '',
   version = '',
   selectedFiles,
 }) => {
@@ -33,7 +33,14 @@ const DownloadSource = async ({
       },
     };
   }
-  const url = `${BASE_URL}${token === '' ? 'guest/' : ''}project/${projectId}/${
+
+  if (userToken !== '') {
+    headers.headers.Authorization = `Bearer ${userToken}`;
+  }
+
+  const url = `${BASE_URL}${
+    userToken === '' ? 'guest/' : ''
+  }project/${projectId}/${
     folderName !== undefined ? `folder/${folderName}/` : ''
   }${fileName !== undefined ? `${fileName}/ ` : ''}${
     selectedFiles !== null && selectedFiles !== undefined

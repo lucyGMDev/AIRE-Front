@@ -1,14 +1,14 @@
 import { BASE_URL } from '../utils/environmental';
 const PostAComment = async ({
   projectId,
-  writterEmail,
+  username,
   commentText,
   responseCommentId,
   userToken,
 }) => {
   const bodyParams = {
     projectId,
-    writterEmail,
+    username,
     commentText,
     responseCommentId,
   };

@@ -1,17 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateProjectPanel.css';
 import { UserExists } from '../../services/GetUser';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { PROJECT_TYPES } from '../../utils/environmental';
+import { CreateProject } from '../../services/CreateProject';
+
 const CreateProjectPanel = ({ displayPanel }) => {
-  const { user } = useContext(UserSessionContext);
+  const navigation = useNavigate();
+  const { user, userToken } = useContext(UserSessionContext);
   const [privacy, setPrivacy] = useState(false);
   const [coauthorInput, setCoauthorInput] = useState('');
   const [coauthorList, setCoauthorList] = useState([]);
   const [coauthorErrorMessage, setCoauthorErrorMessage] = useState('');
   const [projectName, setProjectName] = useState('');
   const [nameErrorMessage, setNameErrorMessage] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
   const [typeProject, setTypeProject] = useState([]);
+  const projectNameInput = useRef();
+  const addCoauthorsInput = useRef();
 
   const changeTypeProject = (evt) => {
     if (typeProject.find((type) => type === evt.target.name) === undefined) {
@@ -59,14 +66,24 @@ const CreateProjectPanel = ({ displayPanel }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (projectName === '') {
-      setNameErrorMessage('Project name can not be empty');
-
-      [...evt.target]
-        .filter((input) => input.name === 'project-name')[0]
-        .blur();
+    if (document.activeElement === addCoauthorsInput.current) {
       return;
     }
+    if (projectName === '') {
+      setNameErrorMessage('Project name can not be empty');
+      projectNameInput.current.blur();
+      return;
+    }
+    const project = {
+      name: projectName,
+      description: projectDescription,
+      isPublic: privacy,
+      coauthors: coauthorList,
+      type: typeProject,
+    };
+    CreateProject({ project, userToken }).then(({ projectId }) =>
+      navigation(`/project/${projectId}`)
+    );
 
     displayPanel(false);
   };
@@ -85,12 +102,25 @@ const CreateProjectPanel = ({ displayPanel }) => {
             setNameErrorMessage('');
           }}
           onChange={(evt) => setProjectName(evt.target.value)}
+          ref={projectNameInput}
         />
-        {nameErrorMessage !== '' && <span>{nameErrorMessage}</span>}
+        {nameErrorMessage !== '' && (
+          <span className='create-panel__error-message'>
+            {nameErrorMessage}
+          </span>
+        )}
         <label className='create-panel__label' htmlFor='project-description'>
           Description
         </label>
-        <input className='form__input' type='text' name='project-description' />
+        <textarea
+          className='textarea__input'
+          type='text'
+          name='project-description'
+          value={projectDescription}
+          onChange={(evt) => {
+            setProjectDescription(evt.target.value);
+          }}
+        />
         <label className='create-panel__label' htmlFor='project-isPublic'>
           Privacy
         </label>
@@ -127,10 +157,17 @@ const CreateProjectPanel = ({ displayPanel }) => {
           type='text'
           value={coauthorInput}
           onChange={(evt) => setCoauthorInput(evt.target.value)}
-          onFocus={() => setCoauthorErrorMessage('')}
+          onFocus={() => {
+            setCoauthorErrorMessage('');
+          }}
           onKeyDown={addCoauhtors}
+          ref={addCoauthorsInput}
         />
-        {coauthorErrorMessage !== '' && <span>{coauthorErrorMessage}</span>}
+        {coauthorErrorMessage !== '' && (
+          <span className='create-panel__error-message'>
+            {coauthorErrorMessage}
+          </span>
+        )}
         {coauthorList.length > 0 && (
           <p className='create-panel__coauthors-list-pannel'>Coauthors List</p>
         )}
@@ -146,7 +183,23 @@ const CreateProjectPanel = ({ displayPanel }) => {
             </div>
           );
         })}
-        <input type='submit' value='Create' className='blue-button' />
+        <div className='create-panel__buttons'>
+          <input
+            type='button'
+            className='blue-button'
+            onClick={() => {
+              displayPanel(false);
+            }}
+            value='Cancel'
+          />
+
+          <input
+            type='submit'
+            className='blue-button'
+            onClick={handleSubmit}
+            value='Create'
+          />
+        </div>
       </form>
     </article>
   );

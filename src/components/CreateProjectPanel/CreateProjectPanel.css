@@ -1,9 +1,18 @@
 .create-panel{
   border: 1px solid var(--main-color);
-  min-width: 500px;
+  width: 100%;
   border-radius: 2em;
   padding: 2em;
   background-color: white;
+}
+
+.create-panel__error-message{
+  display: block;
+  color: red;
+  font-weight: bold;
+  font-size: 0.75rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .create-panel__label{
@@ -29,4 +38,9 @@
   width: 1em;
   height: 1em;
   cursor: pointer;
+}
+
+.create-panel__buttons{
+  display: flex;
+  gap:1em;
 }

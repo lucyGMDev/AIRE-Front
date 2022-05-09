@@ -5,3 +5,41 @@
   padding: 1em 3em;
   align-items: center;
 }
+
+.header__nav{
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+.header__link{
+  text-decoration: none;
+  color: var(--main-color);
+  font-size: 1.2rem;
+  transition: font-weight 0.2s;
+}
+.header__link:hover{
+  font-weight: bold;
+}
+.header__user-picture{
+  position: relative;
+}
+.header__user-picture__image{
+  cursor: pointer;
+}
+
+.user-picture-menu{
+  position: absolute;
+  right: -50%;
+  border: 1px solid var(--main-color);
+  border-radius: 2em;
+  padding: 1em 3em;
+  border-color: var(--main-color);
+  background-color: white;
+  z-index: 10;
+}
+
+.user-picture-menu__link{
+  color: var(--main-color);
+  cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserSessionContext } from '../../context/UserSessionContext';
-import { GetUserByEmail } from '../../services/GetUser';
+import { GetUserByUsername } from '../../services/GetUser';
 import { PostComment } from '../PostComment/PostComment';
 import { UserPicture } from '../UserPicture/UserPicture';
 import { getCommentResponses } from '../../services/GetComments';
@@ -9,7 +9,7 @@ import './ProjectComment.css';
 import { ListOfComments } from '../ListOfComments/ListOfComments';
 const ProjectComment = ({
   commentId,
-  writterEmail,
+  username,
   commentText,
   postDate,
   numberResponses,
@@ -22,7 +22,7 @@ const ProjectComment = ({
   const [replyComments, setReplyComments] = useState([]);
   const { projectId } = useParams();
   useEffect(() => {
-    GetUserByEmail({ userEmail: writterEmail }).then((user) => {
+    GetUserByUsername({ username }).then((user) => {
       setUser(user);
     });
   }, []);
@@ -33,25 +33,30 @@ const ProjectComment = ({
 
   const showRepliesHandler = () => {
     setShowReplies(true);
-    getCommentResponses({
-      projectId,
-      userToken,
-      offset: 0,
-      numberCommentsLoad: 10,
-      commentResponseId: commentId,
-    }).then((comments) => setReplyComments(comments));
   };
 
   const hiddenRepliesHandler = () => {
     setShowReplies(false);
   };
 
+  useEffect(() => {
+    if (showReplies === true) {
+      getCommentResponses({
+        projectId,
+        userToken,
+        offset: 0,
+        numberCommentsLoad: 10,
+        commentResponseId: commentId,
+      }).then((comments) => setReplyComments(comments));
+    }
+  }, [showReplies]);
+
   return (
     <article className='comment'>
       <UserPicture pictureUrl={user.pictureUrl} />
       <div className='comment__body'>
         <div className='comment__body-header'>
-          <p className='comment__writter-email'>{writterEmail}</p>
+          <p className='comment__writter-email'>{username}</p>
           <p className='comment__post-date'>{postDate}</p>
         </div>
         <p className='comment__comment-text'>{commentText}</p>
@@ -82,7 +87,7 @@ const ProjectComment = ({
             Show replies
           </span>
         )}
-        {numberResponses > 0 && showReplies && (
+        {showReplies && (
           <React.Fragment>
             <ListOfComments comments={replyComments} replyList />
             <span

@@ -59,7 +59,6 @@ const UserHome = () => {
     setPicturePath('');
     setUserPicture(undefined);
   };
-
   return (
     <React.Fragment>
       <Header />
@@ -98,7 +97,7 @@ const UserHome = () => {
               <input
                 className='button user-info__form-button'
                 type='submit'
-                value='Edit'
+                value='Save'
               />
               <button
                 onClick={cancelEdit}
@@ -123,26 +122,29 @@ const UserHome = () => {
           )}
         </section>
         <section className='home__element user-projects'>
-          <article className='home__user-project-headers'>
-            <SearchInput
-              searchUserProjects
-              username={user.username}
-              userToken={userToken}
-              setProjectSearched={setProjects}
-            />
-            <button
-              className='blue-button'
-              onClick={() => setCreatingProject(!creatingProject)}
-            >
-              Create project
-            </button>
-          </article>
-          {creatingProject && (
+          {creatingProject ? (
             <div className='home__create-project-panel'>
               <CreateProjectPanel displayPanel={setCreatingProject} />
             </div>
+          ) : (
+            <React.Fragment>
+              <article className='home__user-project-headers'>
+                <SearchInput
+                  searchUserProjects
+                  username={user.username}
+                  userToken={userToken}
+                  setProjectSearched={setProjects}
+                />
+              </article>
+              {projects.length > 0 && (
+                <ProjectList
+                  addCreateProjectPanel
+                  openCreatePanel={() => setCreatingProject(true)}
+                  projects={projects}
+                />
+              )}
+            </React.Fragment>
           )}
-          {projects.length > 0 && <ProjectList projects={projects} />}
         </section>
       </main>
     </React.Fragment>

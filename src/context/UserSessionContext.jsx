@@ -4,9 +4,13 @@ import { Login } from '../services/LoginService';
 import {
   USER_JWT_TIME_EXPIRATON,
   USER_JWT_COOKIE_NAME,
-  USER_COOKIE_NAME,
+  USER_LOCAL_STORAGE_NAME,
 } from '../utils/environmental';
-import { addCookie, getCookieValue, cookieExists } from '../utils/cookieUtils';
+import {
+  addCookie,
+  eliminarCookie,
+  getCookieValue,
+} from '../utils/cookieUtils';
 const UserSessionContext = React.createContext();
 
 const UserSessionProvider = ({ children }) => {
@@ -16,11 +20,20 @@ const UserSessionProvider = ({ children }) => {
     getCookieValue({ key: USER_JWT_COOKIE_NAME }) || ''
   );
   const [user, setUser] = useState(
-    cookieExists({ key: USER_COOKIE_NAME })
-      ? JSON.parse(getCookieValue({ key: USER_COOKIE_NAME }))
+    localStorage.getItem(USER_LOCAL_STORAGE_NAME) !== null &&
+      localStorage.getItem(USER_LOCAL_STORAGE_NAME) !== undefined
+      ? JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_NAME))
       : undefined
   );
   useEffect(() => {
+    if (userToken === '' && user !== undefined) {
+      setUser(undefined);
+      localStorage.removeItem(USER_LOCAL_STORAGE_NAME);
+    }
+    if (user === undefined && userToken !== '') {
+      setUserToken('');
+      eliminarCookie(USER_JWT_COOKIE_NAME);
+    }
     if ((userToken === '' || user === undefined) && isAuthenticated) {
       getAccessTokenSilently().then((token) => {
         setOauthToken(token);
@@ -43,21 +56,17 @@ const UserSessionProvider = ({ children }) => {
           value: token,
           expirationTime: USER_JWT_TIME_EXPIRATON,
         });
-        addCookie({
-          key: USER_COOKIE_NAME,
-          value: JSON.stringify(user),
-          expirationTime: USER_JWT_TIME_EXPIRATON,
-        });
+        localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(user));
       });
     }
   }, [oauthToken]);
 
   useEffect(() => {
-    addCookie({
-      key: USER_COOKIE_NAME,
-      value: JSON.stringify(user),
-      expirationTime: USER_JWT_TIME_EXPIRATON,
-    });
+    if (user === null || user === undefined) {
+      localStorage.removeItem(USER_LOCAL_STORAGE_NAME);
+    } else {
+      localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(user));
+    }
   }, [user]);
   return (
     <UserSessionContext.Provider

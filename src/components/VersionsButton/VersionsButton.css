@@ -42,6 +42,22 @@
   z-index: 10;
 }
 
+
 .versions-pannel__link {
   cursor: pointer;
+}
+
+.versions-pannel__close-button{
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
+}
+
+.versions-pannel__version{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  width: 100%;
 }

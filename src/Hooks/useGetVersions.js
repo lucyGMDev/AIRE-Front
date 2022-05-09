@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 import { GetVersions } from '../services/GetVersions';
 
-const useGetVersions = ({ projectId, setVersion }) => {
+const useGetVersions = ({ projectId, setVersion, userToken }) => {
   const [versions, setVersions] = useState([]);
   useEffect(() => {
-    GetVersions({ projectId }).then((versionList) => {
+    GetVersions({ projectId, userToken }).then((versionList) => {
       if (
         window.localStorage.getItem('version') === null ||
         JSON.parse(window.localStorage.getItem('version')).projectId !==
@@ -20,7 +20,6 @@ const useGetVersions = ({ projectId, setVersion }) => {
           })
         );
       }
-
       setVersions(versionList);
     });
   }, [projectId]);

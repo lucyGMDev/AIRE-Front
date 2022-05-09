@@ -1,11 +1,17 @@
 import { BASE_URL } from '../utils/environmental';
 
-const GetVersions = async ({ token = '', projectId }) => {
+const GetVersions = async ({ userToken = '', projectId }) => {
   const url = `${BASE_URL}${
-    token === '' ? 'guest/' : ''
+    userToken === '' ? 'guest/' : ''
   }project/${projectId}/getVersions`;
-
-  const response = await fetch(url);
+  const headers = {
+    method: 'GET',
+    headers: {},
+  };
+  if (userToken !== '') {
+    headers.headers.Authorization = `Bearer ${userToken}`;
+  }
+  const response = await fetch(url, headers);
   const { versionList } = await response.json();
   return versionList;
 };

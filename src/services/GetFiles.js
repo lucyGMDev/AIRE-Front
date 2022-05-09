@@ -11,7 +11,14 @@ const GetFiles = ({
   }project/${projectId}/folder/${folderName}/getFiles${
     versionName !== '' ? `?version=${versionName}` : ''
   }`;
-  const files = fetch(url).then((response) => response.json());
+  const headers = {
+    method: 'GET',
+    headers: {},
+  };
+  if (userToken !== '') {
+    headers.headers.Authorization = `Bearer ${userToken}`;
+  }
+  const files = fetch(url, headers).then((response) => response.json());
 
   return files;
 };

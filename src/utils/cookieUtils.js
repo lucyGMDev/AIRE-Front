@@ -1,7 +1,8 @@
 const addCookie = ({ key, value, expirationTime }) => {
+  if (value === undefined) return;
   const expirationDate = new Date();
   expirationDate.setTime(expirationDate.getTime() + expirationTime);
-  document.cookie = `${key}=${value};expires=${expirationDate.toUTCString()}`;
+  document.cookie = `${key}=${value};expires=${expirationDate.toUTCString()};path=/`;
 };
 
 const getCookieValue = ({ key }) => {
@@ -23,4 +24,10 @@ const cookieExists = ({ key }) => {
   );
 };
 
-export { addCookie, getCookieValue, cookieExists };
+const eliminarCookie = ({ key }) => {
+  if (cookieExists({ key })) {
+    document.cookie = `${key}=;max-age=0`;
+  }
+};
+
+export { addCookie, getCookieValue, cookieExists, eliminarCookie };

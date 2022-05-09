@@ -1,7 +1,11 @@
 import React from 'react';
 import { Project } from '../Project/Project';
 import './ProjectList.css';
-const ProjectList = ({ projects = [] } = {}) => {
+const ProjectList = ({
+  projects = [],
+  addCreateProjectPanel,
+  openCreatePanel,
+} = {}) => {
   return (
     <section className='project-list'>
       {projects.map((singleProject) => {
@@ -19,6 +23,17 @@ const ProjectList = ({ projects = [] } = {}) => {
           />
         );
       })}
+      {addCreateProjectPanel && (
+        <article
+          className='create-project-card'
+          onClick={() => openCreatePanel()}
+        >
+          <img
+            className='create-project-card__add-icon'
+            src='/assets/add-icon.webp'
+          />
+        </article>
+      )}
     </section>
   );
 };

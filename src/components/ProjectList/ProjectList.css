@@ -13,3 +13,22 @@
   justify-content: space-around;
 }
 
+.create-project-card{
+  display: flex;
+  flex-direction:column;
+  width: var(--card-width);
+  height: var(--card-height);
+  background-color: var(--background-color);
+  border-radius: 2em;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid var(--main-color);
+}
+
+.create-project-card__add-icon{
+  width: 10em;
+  height: 10em;
+
+}
+

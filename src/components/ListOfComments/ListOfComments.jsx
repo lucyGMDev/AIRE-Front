@@ -5,19 +5,13 @@ const ListOfComments = ({ comments, replyList }) => {
   return (
     <React.Fragment>
       {comments.map(
-        ({
-          commentId,
-          writterEmail,
-          commentText,
-          postDate,
-          numberResponses,
-        }) => {
+        ({ commentId, username, commentText, postDate, numberResponses }) => {
           return (
             <React.Fragment key={commentId}>
               {replyList ? (
                 <ProjectComment
                   commentId={commentId}
-                  writterEmail={writterEmail}
+                  username={username}
                   commentText={commentText}
                   postDate={postDate}
                   numberResponses={numberResponses}
@@ -26,7 +20,7 @@ const ListOfComments = ({ comments, replyList }) => {
               ) : (
                 <ProjectComment
                   commentId={commentId}
-                  writterEmail={writterEmail}
+                  username={username}
                   commentText={commentText}
                   postDate={postDate}
                   numberResponses={numberResponses}

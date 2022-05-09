@@ -1,0 +1,25 @@
+.visor-documentos{
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+.visor-documentos__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  border-radius: 2em 2em 0 0;
+  background-color: var(--main-color);
+  height:5em;
+  padding:3em;
+  
+}
+.visor-documentos__content{
+  margin-top: 0;
+  margin: 0;
+  padding: 1em;
+  background-color: var(--contrast-color);
+  color: white;
+  overflow: auto;
+  height: 50em;
+}

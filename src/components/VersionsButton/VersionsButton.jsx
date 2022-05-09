@@ -1,9 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { ProjectContext } from '../../context/ProjectProvider';
+import { UserSessionContext } from '../../context/UserSessionContext';
+import { deleteVersion } from '../../services/DeleteVersion';
+import { DEFAULT_VERSION_NAME } from '../../utils/environmental';
 import './VersionsButton.css';
-const VersionsButton = ({ projectId, versions }) => {
+const VersionsButton = ({ projectId, versions, setVersions }) => {
   const [showPannel, setShowPannel] = useState(false);
   const { version, setVersion } = useContext(ProjectContext);
+  const { userToken } = useContext(UserSessionContext);
   const clickHander = () => {
     setShowPannel(!showPannel);
   };
@@ -15,6 +19,22 @@ const VersionsButton = ({ projectId, versions }) => {
       JSON.stringify({ projectId, version })
     );
     setShowPannel(false);
+  };
+  const deleteVersionHandle = ({ version }) => {
+    deleteVersion({ projectId, versionName: version.name, userToken }).then(
+      (isDeleted) => {
+        if (isDeleted) {
+          changeVersion(
+            versions.find((version) => version.name === DEFAULT_VERSION_NAME)
+          );
+          setVersions(
+            versions.filter(
+              (singleVersion) => singleVersion.name !== version.name
+            )
+          );
+        }
+      }
+    );
   };
 
   const versionName = version ? version.name : 'Versions';
@@ -36,13 +56,21 @@ const VersionsButton = ({ projectId, versions }) => {
         <div className='versions-pannel'>
           {versions.map((version) => {
             return (
-              <p
-                className='versions-pannel__link '
-                onClick={() => changeVersion(version)}
-                key={version.name}
-              >
-                {version.name}
-              </p>
+              <div key={version.name} className='versions-pannel__version'>
+                <span
+                  className='versions-pannel__link '
+                  onClick={() => changeVersion(version)}
+                >
+                  {version.name}
+                </span>
+                {version.name !== DEFAULT_VERSION_NAME && (
+                  <img
+                    className='versions-pannel__close-button'
+                    src='/assets/close-button.svg'
+                    onClick={() => deleteVersionHandle({ version })}
+                  />
+                )}
+              </div>
             );
           })}
         </div>

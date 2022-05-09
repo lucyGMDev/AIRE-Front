@@ -42,7 +42,7 @@ const SearchProject = () => {
 
   return (
     <React.Fragment>
-      <Header addFilters />
+      <Header addSearcher addFilters />
       <ProjectTagList />
       <article className='projects-list'>
         {projects.length > 0 ? (

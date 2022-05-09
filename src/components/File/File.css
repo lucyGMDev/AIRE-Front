@@ -18,6 +18,7 @@
   display: flex;
   gap: 2em;
   align-items: center;
+  width: 450px;
 }
 
 .file__logo {
