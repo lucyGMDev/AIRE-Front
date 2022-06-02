@@ -5,7 +5,12 @@ import {
   getShortUrl,
 } from '../../services/ShortUrlServices';
 import './GetShortUrlButton.css';
-const GetShortUrlButton = ({ projectId, versionName }) => {
+const GetShortUrlButton = ({
+  projectId,
+  versionName,
+  itemName = '',
+  fileName = '',
+}) => {
   const [displayShortUrlPanel, setDisplayShortUrlPanel] = useState(false);
   const [inputShortUrl, setInputShortUrl] = useState('');
   const [inputShortUrlError, setInputShortUrlError] = useState('');
@@ -23,6 +28,8 @@ const GetShortUrlButton = ({ projectId, versionName }) => {
     }
     createProjectShortUrl({
       projectId,
+      itemName,
+      fileName,
       versionName,
       shortUrl: inputShortUrl,
       userToken,
@@ -42,10 +49,12 @@ const GetShortUrlButton = ({ projectId, versionName }) => {
   };
 
   useEffect(() => {
-    getShortUrl({ projectId, userToken, versionName }).then((shorUrl) =>
-      setShortUrl(shorUrl)
+    getShortUrl({ projectId, itemName, fileName, userToken, versionName }).then(
+      (shorUrl) => {
+        setShortUrl(shorUrl);
+      }
     );
-  }, [projectId, versionName]);
+  }, [projectId, itemName, fileName, versionName]);
 
   return (
     <div className='short-url'>

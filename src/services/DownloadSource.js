@@ -42,13 +42,21 @@ const DownloadSource = async ({
     userToken === '' ? 'guest/' : ''
   }project/${projectId}/${
     folderName !== undefined ? `folder/${folderName}/` : ''
-  }${fileName !== undefined ? `${fileName}/ ` : ''}${
+  }${fileName !== undefined ? `file/${fileName}/` : ''}${
     selectedFiles !== null && selectedFiles !== undefined
       ? 'downloadSelected'
       : 'download'
   }${version !== '' ? `?version=${version}` : ''}`;
+  console.log(url);
+  let downloadedFileName;
+  if (fileName) {
+    downloadedFileName = fileName;
+  } else if (folderName) {
+    downloadedFileName = folderName + '.zip';
+  } else {
+    downloadedFileName = projectName + '.zip';
+  }
 
-  const downloadedFileName = (fileName || folderName || projectName) + '.zip';
   fetch(url, headers)
     .then((response) => response.blob())
     .then((blob) => {

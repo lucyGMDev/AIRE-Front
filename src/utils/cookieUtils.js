@@ -25,7 +25,9 @@ const cookieExists = ({ key }) => {
 };
 
 const eliminarCookie = ({ key }) => {
+  console.log(key);
   if (cookieExists({ key })) {
+    console.log('Hello');
     document.cookie = `${key}=;max-age=0`;
   }
 };

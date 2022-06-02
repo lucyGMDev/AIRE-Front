@@ -1,7 +1,4 @@
 .visor-documentos{
-  width: 80%;
-  margin-right: auto;
-  margin-left: auto;
 }
 .visor-documentos__header{
   display: flex;
@@ -12,14 +9,30 @@
   background-color: var(--main-color);
   height:5em;
   padding:3em;
+  color: white;
+  font-weight: bold;
   
 }
 .visor-documentos__content{
   margin-top: 0;
   margin: 0;
   padding: 1em;
-  background-color: var(--contrast-color);
+  background-color: #111;
   color: white;
   overflow: auto;
   height: 50em;
+  font-family: monospace;
+}
+
+.visor-documentos__numberLine{
+  display: inline-block;
+  text-align: center;
+  width: 5em;
+  color: rgba(255, 255, 255, 0.5);
+  user-select: none;
+}
+
+.visor-documentos__content--pdf{
+  padding: 0;
+  height: 90vh;
 }

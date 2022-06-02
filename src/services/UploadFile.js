@@ -5,6 +5,7 @@ const UploadFile = async ({ fileUpload, userToken, projectId, folderName }) => {
   const formData = new FormData();
   formData.append('description', fileUpload.description);
   formData.append('isPublic', fileUpload.isPublic);
+  formData.append('showHistory', fileUpload.showHistory);
   formData.append('file', fileUpload.file);
   const url = `${BASE_URL}project/${projectId}/folder/${folderName}/addFile`;
   const headers = {

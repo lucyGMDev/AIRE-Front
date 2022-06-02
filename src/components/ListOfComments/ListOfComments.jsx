@@ -1,7 +1,17 @@
 import React from 'react';
 import { ProjectComment } from '../ProjectComment/ProjectComment';
 
-const ListOfComments = ({ comments, replyList }) => {
+const ListOfComments = ({ comments, replyList, setComments }) => {
+  console.log(comments);
+  const removeComment = ({ commentId }) => {
+    setComments(
+      comments.filter(
+        (comment) =>
+          comment.commentId !== commentId &&
+          comment.responseCommentId !== commentId
+      )
+    );
+  };
   return (
     <React.Fragment>
       {comments.map(
@@ -15,6 +25,7 @@ const ListOfComments = ({ comments, replyList }) => {
                   commentText={commentText}
                   postDate={postDate}
                   numberResponses={numberResponses}
+                  removeComment={(commentId) => removeComment(commentId)}
                   reply
                 />
               ) : (
@@ -24,6 +35,7 @@ const ListOfComments = ({ comments, replyList }) => {
                   commentText={commentText}
                   postDate={postDate}
                   numberResponses={numberResponses}
+                  removeComment={(commentId) => removeComment(commentId)}
                 />
               )}
             </React.Fragment>

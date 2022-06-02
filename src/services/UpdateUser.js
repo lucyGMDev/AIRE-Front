@@ -2,8 +2,8 @@ import { BASE_URL } from '../utils/environmental';
 
 const UpdateUser = async ({
   userEmail,
-  userFirstName,
-  userLastName,
+  userFirstName = '',
+  userLastName = '',
   userPicture,
   userToken,
 }) => {

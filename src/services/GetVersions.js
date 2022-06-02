@@ -1,4 +1,4 @@
-import { BASE_URL } from '../utils/environmental';
+import { BASE_URL, DEFAULT_VERSION_NAME } from '../utils/environmental';
 
 const GetVersions = async ({ userToken = '', projectId }) => {
   const url = `${BASE_URL}${
@@ -16,4 +16,13 @@ const GetVersions = async ({ userToken = '', projectId }) => {
   return versionList;
 };
 
-export { GetVersions };
+const GetVersion = async ({ projectId, versionName = '' }) => {
+  const url = `${BASE_URL}project/${projectId}/getVersionFromName/${
+    versionName !== '' ? versionName : `${DEFAULT_VERSION_NAME}`
+  }`;
+  const response = await fetch(url);
+  const version = await response.json();
+  return version;
+};
+
+export { GetVersions, GetVersion };

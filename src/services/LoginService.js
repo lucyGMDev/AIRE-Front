@@ -12,4 +12,21 @@ const Login = async ({ oauthToken }) => {
   return { token, user };
 };
 
-export { Login };
+const SignUp = async ({ oauthToken, username }) => {
+  const url = `${BASE_URL}signup`;
+  const data = new FormData();
+  data.append('username', username);
+  const headers = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${oauthToken}`,
+    },
+    body: data,
+  };
+  console.log(headers);
+  const response = await fetch(url, headers);
+  const { token, user } = await response.json();
+  return { token, user };
+};
+
+export { Login, SignUp };

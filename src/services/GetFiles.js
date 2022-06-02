@@ -1,6 +1,6 @@
 import { BASE_URL } from '../utils/environmental';
 
-const GetFiles = ({
+const GetFiles = async ({
   userToken = '',
   projectId,
   folderName,
@@ -18,8 +18,8 @@ const GetFiles = ({
   if (userToken !== '') {
     headers.headers.Authorization = `Bearer ${userToken}`;
   }
-  const files = fetch(url, headers).then((response) => response.json());
-
+  const response = await fetch(url, headers);
+  const files = await response.json();
   return files;
 };
 

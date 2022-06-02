@@ -1,5 +1,5 @@
 import { BASE_URL } from '../utils/environmental';
-const useGetProject = async ({ projectId, userToken = '' }) => {
+const getProject = async ({ projectId, userToken = '' }) => {
   const url = `${BASE_URL}${
     userToken === '' ? 'guest/' : ''
   }project/${projectId}`;
@@ -17,8 +17,9 @@ const useGetProject = async ({ projectId, userToken = '' }) => {
     coauthors: responseJson.coauthors,
     isPublic: responseJson.isPublic,
     type: responseJson.type,
+    showHistory: responseJson.showHistory,
   };
   return project;
 };
 
-export { useGetProject };
+export { getProject };

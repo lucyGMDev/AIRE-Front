@@ -14,4 +14,11 @@ const UserExists = async ({ username }) => {
   return false;
 };
 
-export { GetUserByUsername, UserExists };
+const UserExistsEmail = async ({ userEmail }) => {
+  const url = `${BASE_URL}user/${userEmail}/userExistsEmail`;
+  const response = await fetch(url);
+  const { exists } = await response.json();
+  return exists;
+};
+
+export { GetUserByUsername, UserExists, UserExistsEmail };

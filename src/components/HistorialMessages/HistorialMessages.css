@@ -1,0 +1,43 @@
+.historial{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.historial__messages{
+  position: relative;
+  margin-left: auto;
+  height: 100vh;
+  width: 30vw;
+  background-color: white;
+  padding: 2em;
+  overflow-y:scroll;
+}
+
+.historial__closeButton{
+  position: absolute;
+  width: 1.5em;
+  right: 2em;
+  top: 2em;
+  cursor: pointer;
+}
+
+.historial__title{
+  text-align: center;
+  color: var(--main-color);
+  font-size: 2rem;
+}
+
+.historial__message{
+  color: var(--main-color);
+  font-weight: semi-bold;
+  margin-top: 0;
+}
+
+.historial__message-date{
+  font-size: 0.75rem;
+
+}

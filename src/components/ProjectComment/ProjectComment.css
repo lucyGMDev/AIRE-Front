@@ -1,7 +1,7 @@
 .comment {
   display: flex;
   flex-direction: row;
-  width: 90%;
+  width: 100%;
   gap: 2em;
   position: relative;
   margin-bottom: 2.5em;
@@ -40,12 +40,26 @@
 }
 
 .comment__comment-text {
+  width: 90%;
   margin-top: 0.5em;
 }
 
 .comment__replay,
 .comment__view-replies-button{
   color: var(--main-color);
+  cursor: pointer;
+  display: block;
+}
+
+.comment__message-block{
+  display: flex;
+  justify-content:space-between;
+}
+
+.comment__delete-button{
+  margin-top: 0.5em;
+  width: 1.5em;
+  height: 1.5em;
   cursor: pointer;
 }
 

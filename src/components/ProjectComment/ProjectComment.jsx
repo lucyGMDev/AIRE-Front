@@ -7,6 +7,8 @@ import { UserPicture } from '../UserPicture/UserPicture';
 import { getCommentResponses } from '../../services/GetComments';
 import './ProjectComment.css';
 import { ListOfComments } from '../ListOfComments/ListOfComments';
+import { useIsAuthor } from '../../Hooks/useIsAuthor';
+import { deleteComment } from '../../services/DeleteComment';
 const ProjectComment = ({
   commentId,
   username,
@@ -14,6 +16,7 @@ const ProjectComment = ({
   postDate,
   numberResponses,
   reply,
+  removeComment,
 }) => {
   const [user, setUser] = useState({});
   const { userToken } = useContext(UserSessionContext);
@@ -21,6 +24,7 @@ const ProjectComment = ({
   const [showReplies, setShowReplies] = useState(false);
   const [replyComments, setReplyComments] = useState([]);
   const { projectId } = useParams();
+  const { isAuthor } = useIsAuthor({ userToken, projectId });
   useEffect(() => {
     GetUserByUsername({ username }).then((user) => {
       setUser(user);
@@ -39,6 +43,14 @@ const ProjectComment = ({
     setShowReplies(false);
   };
 
+  const deleteCommentHandler = () => {
+    deleteComment({ projectId, commentId, userToken }).then((deleted) => {
+      if (deleted) {
+        removeComment({ commentId });
+      }
+    });
+  };
+
   useEffect(() => {
     if (showReplies === true) {
       getCommentResponses({
@@ -51,6 +63,11 @@ const ProjectComment = ({
     }
   }, [showReplies]);
 
+  useEffect(() => {
+    if (replyComments.length === 0) setShowReplies(false);
+    else setShowReplies(true);
+  }, [replyComments]);
+
   return (
     <article className='comment'>
       <UserPicture pictureUrl={user.pictureUrl} />
@@ -59,7 +76,16 @@ const ProjectComment = ({
           <p className='comment__writter-email'>{username}</p>
           <p className='comment__post-date'>{postDate}</p>
         </div>
-        <p className='comment__comment-text'>{commentText}</p>
+        <div className='comment__message-block'>
+          <p className='comment__comment-text'>{commentText}</p>
+          {isAuthor && (
+            <img
+              src='/assets/cross_button.webp'
+              className='comment__delete-button'
+              onClick={deleteCommentHandler}
+            />
+          )}
+        </div>
         {userToken && !reply && (
           <React.Fragment>
             {displayReplay ? (
@@ -89,7 +115,11 @@ const ProjectComment = ({
         )}
         {showReplies && (
           <React.Fragment>
-            <ListOfComments comments={replyComments} replyList />
+            <ListOfComments
+              comments={replyComments}
+              replyList
+              setComments={setReplyComments}
+            />
             <span
               className='comment__view-replies-button'
               onClick={hiddenRepliesHandler}

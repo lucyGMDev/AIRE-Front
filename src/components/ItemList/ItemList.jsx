@@ -9,6 +9,7 @@ const ItemList = ({ items = [] } = {}) => {
   const { projectId } = useParams('projectId');
   const { userToken } = useContext(UserSessionContext);
   const { isAuthor } = useIsAuthor({ projectId, userToken });
+  console.log(items);
   return (
     <div className='item-list'>
       {items &&

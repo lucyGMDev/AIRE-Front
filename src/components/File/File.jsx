@@ -50,6 +50,7 @@ const File = ({
             className='file__logo'
           />
           <Link
+            className='link'
             to={`/project/${projectId}/${directoryName}/${fileName}/fileViewer`}
           >
             {fileName}
@@ -61,7 +62,7 @@ const File = ({
           src='/assets/down-arrow.svg'
           className={`file__see-info ${
             showMoreInfo ? 'file__see-info--up' : 'file__see-info--down'
-          }`}
+          }${description === '' ? ' hidden ' : ''}`}
           onClick={toggleHandle}
         />
       </div>

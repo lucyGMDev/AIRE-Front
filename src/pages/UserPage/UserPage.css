@@ -1,0 +1,21 @@
+.user-page{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5em;
+}
+
+.user-info{
+  width:20%;
+}
+
+
+
+
+.user-info__label{
+  color: var(--main-color);
+  font-weight: bold;
+}

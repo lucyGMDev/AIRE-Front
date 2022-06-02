@@ -136,13 +136,12 @@ const UserHome = () => {
                   setProjectSearched={setProjects}
                 />
               </article>
-              {projects.length > 0 && (
-                <ProjectList
-                  addCreateProjectPanel
-                  openCreatePanel={() => setCreatingProject(true)}
-                  projects={projects}
-                />
-              )}
+
+              <ProjectList
+                addCreateProjectPanel
+                openCreatePanel={() => setCreatingProject(true)}
+                projects={projects}
+              />
             </React.Fragment>
           )}
         </section>

@@ -1,0 +1,10 @@
+.coauthor{
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  text-decoration: none;
+  
+}
+.coauthor__name{
+  font-weight: bold;
+}

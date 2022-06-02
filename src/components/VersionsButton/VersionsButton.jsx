@@ -13,6 +13,7 @@ const VersionsButton = ({ projectId, versions, setVersions }) => {
   };
 
   const changeVersion = (version) => {
+    console.log(version);
     setVersion(version);
     window.localStorage.setItem(
       'version',

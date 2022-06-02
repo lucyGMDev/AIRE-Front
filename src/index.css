@@ -81,3 +81,11 @@ code {
 .blue-text{
   color: var(--main-color);
 }
+
+.scroll--hiden{
+  overflow: hidden;
+}
+
+.hidden{
+  visibility: hidden;
+}

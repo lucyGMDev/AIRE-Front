@@ -10,6 +10,7 @@ const FileUploadForm = ({
 }) => {
   // const [filename, setFilename] = useState('');
   const [isPublic, setIsPublic] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [description, setDescription] = useState('');
   const [file, setFile] = useState();
 
@@ -18,6 +19,7 @@ const FileUploadForm = ({
     const fileUpload = {
       isPublic,
       description,
+      showHistory,
       file,
     };
 
@@ -34,19 +36,6 @@ const FileUploadForm = ({
       <form onSubmit={handleSubmit} className='file-upload__form'>
         <div className='form-inputs'>
           <div className='file-upload__form-col1'>
-            {/* <div className='form-element'>
-              <label htmlFor='file-name' className='form-title'>
-                Filename
-              </label>
-              <input
-                type='text'
-                name='file-name'
-                placeholder='File name...'
-                value={filename}
-                onChange={(evt) => setFilename(evt.target.value)}
-                className='form__input name-input'
-              />
-            </div> */}
             <div className='form-element'>
               <label className='form-title' htmlFor='file'>
                 File
@@ -79,6 +68,31 @@ const FileUploadForm = ({
                   }}
                 />
                 <span>private</span>
+              </p>
+            </div>
+            <div className='form-element'>
+              <label className='form-title' htmlFor='file-showHistory'>
+                Show History
+              </label>
+              <p>
+                <input
+                  type='radio'
+                  name='show'
+                  checked={showHistory === true}
+                  onChange={() => setShowHistory(true)}
+                />
+                <span>Yes</span>
+              </p>
+              <p>
+                <input
+                  type='radio'
+                  name='notShow'
+                  checked={showHistory === false}
+                  onChange={() => {
+                    setShowHistory(false);
+                  }}
+                />
+                <span>No</span>
               </p>
             </div>
           </div>

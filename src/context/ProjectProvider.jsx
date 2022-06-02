@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProjectContext = React.createContext({});
+const ProjectContext = React.createContext();
 
 const ProjectProvider = ({ children }) => {
   const [project, setProject] = useState();

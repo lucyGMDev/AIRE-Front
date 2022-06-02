@@ -11,7 +11,7 @@ import { PostComment } from '../../components/PostComment/PostComment';
 import { VersionsButton } from '../../components/VersionsButton/VersionsButton';
 import { ProjectContext } from '../../context/ProjectProvider';
 import { UserSessionContext } from '../../context/UserSessionContext';
-import { useGetProject } from '../../Hooks/useGetProject';
+import { getProject } from '../../Hooks/useGetProject';
 import { useIsAuthor } from '../../Hooks/useIsAuthor';
 import { getComments } from '../../services/GetComments';
 import { getProjectItems } from '../../services/GetProjectItems';
@@ -22,6 +22,8 @@ import { updateProject } from '../../services/UpdateProject';
 import { deleteProject } from '../../services/DeleteProject';
 import { CreateVersionButton } from '../../components/CreateVersionButton/CreateVersionButton';
 import { UserExists } from '../../services/GetUser';
+import { CoauthorList } from '../../components/CoauthorList/CoauthorList';
+import { HistorialMessages } from '../../components/HistorialMessages/HistorialMessages';
 
 const ViewProject = () => {
   const { projectId } = useParams();
@@ -29,11 +31,6 @@ const ViewProject = () => {
   const { project, setProject, version, setVersion } =
     useContext(ProjectContext);
   const { userToken, user } = useContext(UserSessionContext);
-  if (project === undefined) {
-    useGetProject({ projectId, userToken }).then((project) => {
-      setProject(project);
-    });
-  }
   const [comments, setComments] = useState([]);
   const [offset] = useState(0);
   const [numberCommentsLoad] = useState(10);
@@ -42,15 +39,17 @@ const ViewProject = () => {
   const [onRatingOver, setOnRatingOver] = useState(false);
   const { isAuthor } = useIsAuthor({ projectId, userToken });
   const [displayEditProject, setDisplayEditProject] = useState(false);
+  const [displayHistory, setDisplayHistory] = useState(false);
   const [nameEditProject, setNameEditProject] = useState(
     project ? project.name : ''
   );
   const [descriptionEditProject, setDescriptionEditProject] = useState(
     project ? project.description : ''
   );
-  const [isPublicEditProject, setIsPublicEditProject] = useState(
-    project ? project.isPublic : false
-  );
+
+  const [isPublicEditProject, setIsPublicEditProject] = useState();
+  const [showHistoryEdit, setShowHistoryEdit] = useState();
+
   const [projectTypes, setProjectTypes] = useState(project ? project.type : []);
   const [coauthorInput, setCoauthorInput] = useState('');
   const [coauthorErrorMessage, setCoauthorErrorMessage] = useState('');
@@ -62,8 +61,9 @@ const ViewProject = () => {
     GetVersions({ projectId, userToken }).then((versionList) => {
       if (
         window.localStorage.getItem('version') === null ||
-        JSON.parse(window.localStorage.getItem('version')).projectId !==
-          projectId
+        parseInt(
+          JSON.parse(window.localStorage.getItem('version')).projectId
+        ) !== parseInt(projectId)
       ) {
         setVersion(versionList[0]);
         window.localStorage.setItem(
@@ -76,12 +76,15 @@ const ViewProject = () => {
       }
       setVersions(versionList);
     });
-    if (project === undefined || project === null) {
-      useGetProject({ projectId, userToken }).then((project) => {
+    if (project === null || project === undefined) {
+      getProject({ projectId, userToken }).then((project) => {
         setProject(project);
+        setShowHistoryEdit(project.showHistory);
+        setIsPublicEditProject(project.isPublic);
+        setCoauthorList(project.coauthors);
       });
     }
-  }, [projectId]);
+  }, [projectId, userToken]);
   useEffect(() => {
     getComments({
       projectId: projectId,
@@ -134,6 +137,7 @@ const ViewProject = () => {
       name: nameEditProject,
       description: descriptionEditProject,
       isPublic: isPublicEditProject,
+      showHistory: showHistoryEdit,
       type: projectTypes,
       coauthors: coauthorList,
     };
@@ -184,13 +188,12 @@ const ViewProject = () => {
       );
     }
   };
-
   return (
     <React.Fragment>
       {project ? (
         <React.Fragment>
           <Header />
-          <main className='project'>
+          <main className={`project`}>
             <div className='project-name'>
               <Link to={`/project/${projectId}`} className='project-link'>
                 <p>/{project.name}</p>
@@ -280,6 +283,28 @@ const ViewProject = () => {
                       onChange={() => setIsPublicEditProject(true)}
                     />
                     Public
+                  </p>
+                  <label
+                    htmlFor='project-privay'
+                    className='project-setting__label'
+                  >
+                    Show History
+                  </label>
+                  <p>
+                    <input
+                      type='radio'
+                      checked={!showHistoryEdit}
+                      onChange={() => setShowHistoryEdit(false)}
+                    />
+                    No
+                  </p>
+                  <p>
+                    <input
+                      type='radio'
+                      checked={showHistoryEdit}
+                      onChange={() => setShowHistoryEdit(true)}
+                    />
+                    Yes
                   </p>
                   <label
                     htmlFor='project-categories'
@@ -388,11 +413,33 @@ const ViewProject = () => {
                 )}
               </div>
             </section>
-            <section className='project-section '>
-              <PostComment comments={comments} setComments={setComments} />
-              {comments.length !== 0 && <ListOfComments comments={comments} />}
+            <section className='project-section'>
+              <h2 className='project-section__title'>Coauthors</h2>
+              <CoauthorList authors={coauthorList} />
             </section>
+            {(user || comments.length !== 0) && (
+              <section className='project-section '>
+                {user && (
+                  <PostComment comments={comments} setComments={setComments} />
+                )}
+                {comments.length !== 0 && (
+                  <ListOfComments
+                    comments={comments}
+                    setComments={setComments}
+                  />
+                )}
+              </section>
+            )}
           </main>
+          {displayHistory ? (
+            <HistorialMessages display={setDisplayHistory} />
+          ) : (
+            <img
+              src='/assets/history_icon.webp'
+              className='project__history-button'
+              onClick={() => setDisplayHistory(true)}
+            />
+          )}
         </React.Fragment>
       ) : (
         <div>Loading...</div>

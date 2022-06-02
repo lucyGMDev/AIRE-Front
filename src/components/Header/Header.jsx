@@ -21,8 +21,9 @@ const Header = ({ addFilters, addSearcher }) => {
   const logoutHandler = () => {
     setUser(undefined);
     localStorage.removeItem(USER_LOCAL_STORAGE_NAME);
+    console.log(USER_JWT_COOKIE_NAME);
+    eliminarCookie({ key: USER_JWT_COOKIE_NAME });
     setUserToken('');
-    eliminarCookie(USER_JWT_COOKIE_NAME);
     logout({ returnTo: window.location.origin });
   };
 

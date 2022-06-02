@@ -4,10 +4,11 @@ import { GetFiles } from '../services/GetFiles';
 const useGetFiles = ({ projectId, itemName, versionName, userToken }) => {
   const [files, setFiles] = useState([]);
   useEffect(() => {
+    console.log(versionName);
     GetFiles({ projectId, folderName: itemName, versionName, userToken }).then(
       ({ files }) => setFiles(files)
     );
-  }, [projectId, itemName, versionName]);
+  }, [projectId, itemName, versionName, userToken]);
 
   return { files, setFiles };
 };

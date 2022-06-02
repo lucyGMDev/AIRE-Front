@@ -10,6 +10,7 @@ const CreateProjectPanel = ({ displayPanel }) => {
   const navigation = useNavigate();
   const { user, userToken } = useContext(UserSessionContext);
   const [privacy, setPrivacy] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [coauthorInput, setCoauthorInput] = useState('');
   const [coauthorList, setCoauthorList] = useState([]);
   const [coauthorErrorMessage, setCoauthorErrorMessage] = useState('');
@@ -78,6 +79,7 @@ const CreateProjectPanel = ({ displayPanel }) => {
       name: projectName,
       description: projectDescription,
       isPublic: privacy,
+      showHistory,
       coauthors: coauthorList,
       type: typeProject,
     };
@@ -141,6 +143,27 @@ const CreateProjectPanel = ({ displayPanel }) => {
             checked={privacy === false}
           />
           private
+        </p>
+        <label className='create-panel__label' htmlFor='project-isPublic'>
+          Show History
+        </label>
+        <p>
+          <input
+            type='radio'
+            value='showHistory'
+            onChange={() => setShowHistory(true)}
+            checked={showHistory === true}
+          />
+          Yes
+        </p>
+        <p>
+          <input
+            type='radio'
+            value='notShowHistory'
+            onChange={() => setShowHistory(false)}
+            checked={showHistory === false}
+          />
+          No
         </p>
         <label className='create-panel__label'>Type</label>
         {PROJECT_TYPES.map((type) => {

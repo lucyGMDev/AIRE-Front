@@ -11,30 +11,32 @@ import {
   eliminarCookie,
   getCookieValue,
 } from '../utils/cookieUtils';
+import { UserExistsEmail } from '../services/GetUser';
 const UserSessionContext = React.createContext();
 
 const UserSessionProvider = ({ children }) => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [oauthToken, setOauthToken] = useState();
   const [userToken, setUserToken] = useState(
     getCookieValue({ key: USER_JWT_COOKIE_NAME }) || ''
   );
-  const [user, setUser] = useState(
+  const [signUp, setSignUp] = useState(false);
+  const [userLogged, setUser] = useState(
     localStorage.getItem(USER_LOCAL_STORAGE_NAME) !== null &&
       localStorage.getItem(USER_LOCAL_STORAGE_NAME) !== undefined
       ? JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_NAME))
       : undefined
   );
   useEffect(() => {
-    if (userToken === '' && user !== undefined) {
+    if (userToken === '' && userLogged !== undefined) {
       setUser(undefined);
       localStorage.removeItem(USER_LOCAL_STORAGE_NAME);
     }
-    if (user === undefined && userToken !== '') {
+    if (userLogged === undefined && userToken !== '') {
       setUserToken('');
       eliminarCookie(USER_JWT_COOKIE_NAME);
     }
-    if ((userToken === '' || user === undefined) && isAuthenticated) {
+    if ((userToken === '' || userLogged === undefined) && isAuthenticated) {
       getAccessTokenSilently().then((token) => {
         setOauthToken(token);
       });
@@ -43,34 +45,50 @@ const UserSessionProvider = ({ children }) => {
 
   useEffect(() => {
     if (
-      (userToken === '' || user === undefined) &&
+      (userToken === '' || userLogged === undefined) &&
       oauthToken !== '' &&
       oauthToken !== undefined &&
       oauthToken !== null
     ) {
-      Login({ oauthToken }).then(({ token, user }) => {
-        setUserToken(token);
-        setUser(user);
-        addCookie({
-          key: USER_JWT_COOKIE_NAME,
-          value: token,
-          expirationTime: USER_JWT_TIME_EXPIRATON,
-        });
-        localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(user));
+      UserExistsEmail({ userEmail: user.email }).then((exists) => {
+        console.log(exists);
+        if (exists) {
+          Login({ oauthToken }).then(({ token, user }) => {
+            console.log(user);
+            setUserToken(token);
+            setUser(user);
+            addCookie({
+              key: USER_JWT_COOKIE_NAME,
+              value: token,
+              expirationTime: USER_JWT_TIME_EXPIRATON,
+            });
+            localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(user));
+          });
+        } else {
+          setSignUp(true);
+        }
       });
     }
-  }, [oauthToken]);
+  }, [oauthToken, user]);
 
   useEffect(() => {
-    if (user === null || user === undefined) {
+    if (userLogged === null || userLogged === undefined) {
       localStorage.removeItem(USER_LOCAL_STORAGE_NAME);
     } else {
-      localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(user));
+      localStorage.setItem(USER_LOCAL_STORAGE_NAME, JSON.stringify(userLogged));
     }
-  }, [user]);
+  }, [userLogged]);
   return (
     <UserSessionContext.Provider
-      value={{ userToken, setUserToken, user, setUser }}
+      value={{
+        userToken,
+        setUserToken,
+        user: userLogged,
+        setUser,
+        oauthToken,
+        signUp,
+        setSignUp,
+      }}
     >
       {children}
     </UserSessionContext.Provider>

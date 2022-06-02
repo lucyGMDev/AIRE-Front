@@ -16,6 +16,7 @@ const PostComment = ({
   const { projectId } = useParams();
   const [commentText, setCommentText] = useState('');
   const [inputFocused, setInputFocused] = useState(false);
+
   const inputFocusHandler = (focus) => {
     setInputFocused(focus);
   };

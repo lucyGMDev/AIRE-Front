@@ -8,8 +8,9 @@ const useGetVersions = ({ projectId, setVersion, userToken }) => {
     GetVersions({ projectId, userToken }).then((versionList) => {
       if (
         window.localStorage.getItem('version') === null ||
-        JSON.parse(window.localStorage.getItem('version')).projectId !==
-          projectId
+        parseInt(
+          JSON.parse(window.localStorage.getItem('version')).projectId
+        ) !== parseInt(projectId)
       ) {
         setVersion(versionList[0]);
         window.localStorage.setItem(

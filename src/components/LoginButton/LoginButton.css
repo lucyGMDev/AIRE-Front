@@ -8,3 +8,11 @@
   border-radius: 1em;
   cursor: pointer;
 }
+
+.landing-button{
+  font-size: 1.5rem;
+  width: 8em;
+  height:3em;
+  border-color: white;
+  border-radius: 4em ;
+}

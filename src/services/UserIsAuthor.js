@@ -1,6 +1,7 @@
 import { BASE_URL } from '../utils/environmental';
 
 const UserIsAuthor = async ({ userToken, projectId }) => {
+  if (userToken === '') return false;
   const url = `${BASE_URL}project/${projectId}/isAuthor`;
   const headers = {
     headers: {

@@ -99,3 +99,17 @@
   color:red;
   font-weight: semi-bold;
 }
+.project-section__title{
+  color: var(--main-color);
+  margin-top: 0;
+}
+
+.project__history-button{
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  width:3em;
+  cursor: pointer;
+  
+
+}

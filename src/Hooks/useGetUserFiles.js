@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { BASE_URL } from '../utils/environmental';
-const useGetUserFiles = ({ userGetProjects, userToken }) => {
+const useGetUserFiles = ({ userGetProjects, userToken = '' }) => {
   const [projects, setProjects] = useState([]);
   useEffect(() => {
     let headers;
-    if (userToken) {
+    if (userToken !== '') {
       headers = {
         method: 'GET',
         headers: {
@@ -16,7 +16,9 @@ const useGetUserFiles = ({ userGetProjects, userToken }) => {
         method: 'GET',
       };
     }
-    const url = `${BASE_URL}project/user/${userGetProjects}`;
+    const url = `${BASE_URL}${
+      userToken === '' ? 'guest/' : ''
+    }project/user/${userGetProjects}`;
     fetch(url, headers)
       .then((response) => {
         return response.json();

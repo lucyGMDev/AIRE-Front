@@ -78,14 +78,7 @@ const Project = ({
       </footer>
       <div className={`project-card__info ${projectCardInfoAction}`}>
         <p>{description || 'There are not a description'}</p>
-        {type.length !== 0 ? (
-          <p>
-            <span className='project-card__categories-title'>Categories:</span>
-            {type.join()}
-          </p>
-        ) : (
-          ''
-        )}
+        {type.length !== 0 ? <p>{type.join()}</p> : ''}
       </div>
     </article>
   );
