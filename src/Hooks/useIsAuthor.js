@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { UserIsAuthor } from '../services/UserIsAuthor';
+import { UserIsAuthor } from '../services/UserServices';
 
 const useIsAuthor = ({ projectId, userToken = '' }) => {
   const [isAuthor, setIsAuthor] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UploadFile } from '../../services/UploadFile';
+import { UploadFile } from '../../services/FileServices';
 import './FileUploadForm.css';
 const FileUploadForm = ({
   cancelHandle,

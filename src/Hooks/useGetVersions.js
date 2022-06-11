@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-
-import { GetVersions } from '../services/GetVersions';
+import { GetVersions } from '../services/VersionServices';
 
 const useGetVersions = ({ projectId, setVersion, userToken }) => {
   const [versions, setVersions] = useState([]);

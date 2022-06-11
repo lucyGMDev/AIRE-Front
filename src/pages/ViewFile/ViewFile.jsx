@@ -11,8 +11,11 @@ import { useGetFile } from '../../Hooks/useGetFile';
 import { getProject } from '../../Hooks/useGetProject';
 import { useGetVersions } from '../../Hooks/useGetVersions';
 import { useIsAuthor } from '../../Hooks/useIsAuthor';
-import { updatePrivacy, updateShowHistory } from '../../services/FileServices';
-import { getFileContent } from '../../services/GetFileContent';
+import {
+  getFileContent,
+  updatePrivacy,
+  updateShowHistory,
+} from '../../services/FileServices';
 import './ViewFile.css';
 
 const ViewFile = () => {

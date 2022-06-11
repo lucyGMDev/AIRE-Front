@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserSessionContext } from '../../context/UserSessionContext';
+import { PostAComment } from '../../services/CommentsServices';
 import { UserPicture } from '../UserPicture/UserPicture';
-import { PostAComment } from '../../services/PostComment';
 import './PostComment.css';
 
 const PostComment = ({

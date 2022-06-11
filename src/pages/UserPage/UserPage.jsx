@@ -5,7 +5,8 @@ import { ProjectList } from '../../components/ProjectList/ProjectList';
 import { UserPicture } from '../../components/UserPicture/UserPicture';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { useGetUserFiles } from '../../Hooks/useGetUserFiles';
-import { GetUserByUsername } from '../../services/GetUser';
+import { GetUserByUsername } from '../../services/UserServices';
+
 import './UserPage.css';
 
 const UserPage = () => {

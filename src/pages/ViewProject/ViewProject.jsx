@@ -13,17 +13,22 @@ import { ProjectContext } from '../../context/ProjectProvider';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { getProject } from '../../Hooks/useGetProject';
 import { useIsAuthor } from '../../Hooks/useIsAuthor';
-import { getComments } from '../../services/GetComments';
-import { getProjectItems } from '../../services/GetProjectItems';
-import { GetVersions } from '../../services/GetVersions';
-import { RateProject } from '../../services/RateProject';
+
 import './ViewProject.css';
-import { updateProject } from '../../services/UpdateProject';
-import { deleteProject } from '../../services/DeleteProject';
+
 import { CreateVersionButton } from '../../components/CreateVersionButton/CreateVersionButton';
-import { UserExists } from '../../services/GetUser';
+
 import { CoauthorList } from '../../components/CoauthorList/CoauthorList';
 import { HistorialMessages } from '../../components/HistorialMessages/HistorialMessages';
+import {
+  deleteProject,
+  getProjectItems,
+  RateProject,
+  updateProject,
+} from '../../services/ProjectServices';
+import { getComments } from '../../services/CommentsServices';
+import { GetVersions } from '../../services/VersionServices';
+import { UserExists } from '../../services/UserServices';
 
 const ViewProject = () => {
   const { projectId } = useParams();

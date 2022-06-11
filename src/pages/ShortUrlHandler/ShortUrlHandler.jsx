@@ -1,8 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ProjectContext } from '../../context/ProjectProvider';
-import { GetVersion } from '../../services/GetVersions';
+
 import { getResourceFromShortUrl } from '../../services/ShortUrlServices';
+import { GetVersion } from '../../services/VersionServices';
 
 const ShortUrlHandler = () => {
   const { shortUrl } = useParams();

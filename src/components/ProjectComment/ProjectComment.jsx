@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserSessionContext } from '../../context/UserSessionContext';
-import { GetUserByUsername } from '../../services/GetUser';
 import { PostComment } from '../PostComment/PostComment';
 import { UserPicture } from '../UserPicture/UserPicture';
-import { getCommentResponses } from '../../services/GetComments';
+
 import './ProjectComment.css';
 import { ListOfComments } from '../ListOfComments/ListOfComments';
 import { useIsAuthor } from '../../Hooks/useIsAuthor';
-import { deleteComment } from '../../services/DeleteComment';
+import {
+  deleteComment,
+  getCommentResponses,
+} from '../../services/CommentsServices';
+import { GetUserByUsername } from '../../services/UserServices';
+
 const ProjectComment = ({
   commentId,
   username,

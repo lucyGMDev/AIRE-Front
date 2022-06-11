@@ -1,10 +1,10 @@
 import React, { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateProjectPanel.css';
-import { UserExists } from '../../services/GetUser';
+import { UserExists } from '../../services/UserServices';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { PROJECT_TYPES } from '../../utils/environmental';
-import { CreateProject } from '../../services/CreateProject';
+import { CreateProject } from '../../services/ProjectServices';
 
 const CreateProjectPanel = ({ displayPanel }) => {
   const navigation = useNavigate();

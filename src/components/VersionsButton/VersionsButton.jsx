@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { ProjectContext } from '../../context/ProjectProvider';
 import { UserSessionContext } from '../../context/UserSessionContext';
-import { deleteVersion } from '../../services/DeleteVersion';
+import { deleteVersion } from '../../services/VersionServices';
 import { DEFAULT_VERSION_NAME } from '../../utils/environmental';
 import './VersionsButton.css';
 const VersionsButton = ({ projectId, versions, setVersions }) => {

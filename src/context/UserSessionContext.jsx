@@ -11,7 +11,7 @@ import {
   eliminarCookie,
   getCookieValue,
 } from '../utils/cookieUtils';
-import { UserExistsEmail } from '../services/GetUser';
+import { UserExistsEmail } from '../services/UserServices';
 const UserSessionContext = React.createContext();
 
 const UserSessionProvider = ({ children }) => {

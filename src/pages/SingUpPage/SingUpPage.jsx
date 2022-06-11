@@ -9,7 +9,8 @@ import {
   USER_LOCAL_STORAGE_NAME,
 } from '../../utils/environmental';
 import { SignUp } from '../../services/LoginService';
-import { UserExists } from '../../services/GetUser';
+import { UserExists } from '../../services/UserServices';
+
 const SingUpPage = () => {
   const userNameInput = useRef();
   const navigator = useNavigate();
@@ -48,7 +49,7 @@ const SingUpPage = () => {
   return (
     <main className='main-page'>
       <section className='singup'>
-        <h1 className='blue-text singup__title'>Sing Up</h1>
+        <h1 className='blue-text singup__title'>Sign Up</h1>
         <form onSubmit={(evt) => signUpHandler(evt)}>
           <label className='blue-text singup__label'>Username</label>
           <input

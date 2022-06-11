@@ -1,9 +1,11 @@
 import React, { useState, useContext, useRef } from 'react';
 import { DEFAULT_VERSION_NAME } from '../../utils/environmental';
 import { UserSessionContext } from '../../context/UserSessionContext';
-import { createVersion } from '../../services/CreateVersion';
-import { versionNameExists } from '../../services/VersionNameExist';
 import './CreateVersionButton.css';
+import {
+  createVersion,
+  versionNameExists,
+} from '../../services/VersionServices';
 
 const CreateVersionButton = ({ projectId, addNewVersion }) => {
   const [displayCreateVersion, setDisplayCreateVersion] = useState(false);

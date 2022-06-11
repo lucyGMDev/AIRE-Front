@@ -6,7 +6,7 @@ import { SearchInput } from '../../components/SearchInput/SearchInput';
 import { UserPicture } from '../../components/UserPicture/UserPicture';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { useGetUserFiles } from '../../Hooks/useGetUserFiles';
-import { UpdateUser } from '../../services/UpdateUser';
+import { UpdateUser } from '../../services/UserServices';
 import './UserHome.css';
 const UserHome = () => {
   const { user, userToken, setUser } = useContext(UserSessionContext);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { GetUserByUsername } from '../../services/GetUser';
+import { GetUserByUsername } from '../../services/UserServices';
+
 import { UserPicture } from '../UserPicture/UserPicture';
 import './Coauthor.css';
 const Coauthor = ({ username }) => {

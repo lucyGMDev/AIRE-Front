@@ -13,7 +13,7 @@ import { FileList } from '../../components/FileList/FileList';
 import { SelectedFilesContext } from '../../context/SelectedFilesContext';
 import { UserSessionContext } from '../../context/UserSessionContext';
 import { FileUploadForm } from '../../components/FileUploadForm/FileUploadForm';
-import { DeleteFiles } from '../../services/DeleteFile';
+
 import { useIsAuthor } from '../../Hooks/useIsAuthor';
 import { GetShortUrlButton } from '../../components/GetShortUrlButton/GetShortUrlButton';
 import {
@@ -21,9 +21,9 @@ import {
   updatePrivacy,
   updateShowHistory,
 } from '../../services/ItemServices';
-import { UploadFile } from '../../services/UploadFile';
 import { LoadSpinner } from '../../components/LoadSpinner/LoadSpinner';
 import { DEFAULT_VERSION_NAME } from '../../utils/environmental';
+import { DeleteFiles, UploadFile } from '../../services/FileServices';
 const ViewItem = () => {
   const { projectId, itemName } = useParams();
   const { project, setProject, version, setVersion } =
